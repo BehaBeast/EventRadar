@@ -1,1 +1,1 @@
-{"private":true,"type":"module","scripts":{"test:db":"node --test tests/db/foundation.test.mjs tests/db/payment_push.test.mjs"},"devDependencies":{"@electric-sql/pglite":"0.5.15"}}
+{"private":true,"type":"module","scripts":{"test:db":"node --test tests/db/foundation.test.mjs tests/db/payment_push.test.mjs tests/db/account_deletion.test.mjs"},"devDependencies":{"@electric-sql/pglite":"0.5.15"}}

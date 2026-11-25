@@ -6,7 +6,6 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../core/widgets.dart';
 import '../../l10n/app_localizations.dart';
-import '../payments/checkout_sheet.dart';
 import 'event.dart';
 import 'repository.dart';
 
@@ -284,24 +283,10 @@ class EventScreen extends StatelessWidget {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          child: FilledButton.icon(
-            icon: const Icon(Icons.confirmation_num),
-            label: const Text(
-              'Купить билет',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            style: FilledButton.styleFrom(
-              minimumSize: const Size.fromHeight(52),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            ),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (_) => CheckoutSheet(event: event),
-              );
-            },
+          child: Text(
+            l.noPurchase,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
       ),

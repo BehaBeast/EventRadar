@@ -7,11 +7,6 @@ import 'core/theme.dart';
 import 'features/auth/auth_screen.dart';
 import 'features/catalog/catalog_screen.dart';
 import 'features/catalog/event.dart';
-import 'features/map/map_screen.dart';
-import 'features/notifications/in_app_banner.dart';
-import 'features/notifications/notification_service.dart';
-import 'features/notifications/notifications_screen.dart';
-import 'features/payments/my_tickets_screen.dart';
 import 'features/profile/profile_screen.dart';
 import 'l10n/app_localizations.dart';
 
@@ -28,11 +23,6 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           StatefulShellBranch(
             routes: [
-              GoRoute(path: '/map', builder: (_, _) => const MapScreen()),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
               GoRoute(
                 path: '/profile',
                 builder: (_, _) => const ProfileScreen(),
@@ -42,14 +32,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         ],
       ),
       GoRoute(path: '/auth', builder: (_, _) => const AuthScreen()),
-      GoRoute(
-        path: '/notifications',
-        builder: (_, _) => const NotificationsScreen(),
-      ),
-      GoRoute(
-        path: '/tickets',
-        builder: (_, _) => const MyTicketsScreen(),
-      ),
       GoRoute(
         path: '/event',
         redirect: (_, state) => state.extra is RadarEvent ? null : '/',
@@ -84,39 +66,20 @@ class EventRadarApp extends ConsumerWidget {
   }
 }
 
-class AppShell extends ConsumerWidget {
+class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.shell});
   final StatefulNavigationShell shell;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final unreadNotifs = ref.watch(
-      notificationProvider.select((s) => s.unreadCount),
-    );
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l.appTitle),
-        actions: [
-          IconButton(
-            tooltip: 'Push-уведомления',
-            icon: Badge(
-              isLabelVisible: unreadNotifs > 0,
-              label: Text('$unreadNotifs'),
-              child: const Icon(Icons.notifications_outlined),
-            ),
-            onPressed: () => context.push('/notifications'),
-          ),
-        ],
-      ),
-      body: InAppNotificationBanner(
-        child: SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: shell,
-            ),
+      appBar: AppBar(title: Text(l.appTitle)),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: shell,
           ),
         ),
       ),
@@ -127,11 +90,6 @@ class AppShell extends ConsumerWidget {
           NavigationDestination(
             icon: const Icon(Icons.radar),
             label: l.catalog,
-          ),
-          const NavigationDestination(
-            icon: Icon(Icons.map_outlined),
-            selectedIcon: Icon(Icons.map),
-            label: 'Карта',
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline),

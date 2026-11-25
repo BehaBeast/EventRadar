@@ -1,4 +1,4 @@
-package com.eventradar.eventradar
+package uz.eventradar.app
 
 import io.flutter.embedding.android.FlutterActivity
 

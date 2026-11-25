@@ -154,5 +154,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noPurchase =>
-      'Продажа билетов ещё не подключена. Эта сборка предназначена для проверки каталога.';
+      'Онлайн-продажа билетов скоро появится. Для участия свяжитесь с организатором.';
+
+  @override
+  String get deleteAccount => 'Удалить аккаунт';
+
+  @override
+  String get deleteAccountTitle => 'Удалить аккаунт?';
+
+  @override
+  String get deleteAccountBody =>
+      'Аккаунт, профиль, избранное и другие персональные данные будут удалены навсегда. Это действие нельзя отменить.';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get accountDeleted => 'Аккаунт удалён';
+
+  @override
+  String get organizerHasEvents =>
+      'Организатор с мероприятиями может удалить аккаунт только через поддержку.';
+
+  @override
+  String get privacyPolicy => 'Политика конфиденциальности';
 }

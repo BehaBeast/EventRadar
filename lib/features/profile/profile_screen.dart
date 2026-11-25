@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/backend.dart';
+import '../../core/config.dart';
 import '../../core/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../catalog/repository.dart';
-import '../map/map_provider_config.dart';
-import '../notifications/notification_service.dart';
-import '../notifications/notifications_screen.dart';
-import '../payments/my_tickets_screen.dart';
-import '../payments/payment_config.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -100,59 +98,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ),
         ],
         const SizedBox(height: 16),
-        // My Tickets Tile
-        Card(
-          elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.5),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: ListTile(
-            leading: const Icon(Icons.confirmation_number_outlined, color: Colors.blue),
-            title: const Text('Мои билеты', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('Купленные билеты с QR-кодами'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const MyTicketsScreen()),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 8),
-
-        // Push Notifications Tile
-        Card(
-          elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.5),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: ListTile(
-            leading: const Icon(Icons.notifications_active_outlined, color: Colors.green),
-            title: const Text('Push-уведомления', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('FCM работает · Напоминания и билеты'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const NotificationsScreen()),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 8),
-
-        // Providers Status & Configuration Tile
-        Card(
-          elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.5),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: ListTile(
-            leading: const Icon(Icons.hub_outlined, color: Colors.deepPurple),
-            title: const Text('Провайдеры (Карта, Push, Оплата)', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('OpenStreetMap, FCM, Payme, Click'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _showProvidersSummaryDialog(context, ref),
-          ),
-        ),
-
-        const SizedBox(height: 16),
         if (favorites.hasValue)
           ListTile(
             contentPadding: EdgeInsets.zero,
@@ -203,60 +148,77 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   }),
             child: Text(l.signOut),
           ),
+        if (user != null) ...[
+          const SizedBox(height: 8),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            onPressed: busy ? null : deleteAccount,
+            child: Text(l.deleteAccount),
+          ),
+        ],
+        const SizedBox(height: 8),
+        TextButton(
+          onPressed: () => launchUrl(
+            Uri.parse(AppConfig.privacyPolicyUrl),
+            mode: LaunchMode.externalApplication,
+          ),
+          child: Text(l.privacyPolicy),
+        ),
         const SizedBox(height: 24),
         Text(l.foundation, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }
 
-  void _showProvidersSummaryDialog(BuildContext context, WidgetRef ref) {
-    final mapConfig = ref.watch(mapConfigProvider);
-    final paymentSettings = ref.watch(paymentConfigProvider);
-    final notifState = ref.watch(notificationProvider);
-
-    showModalBottomSheet(
+  Future<void> deleteAccount() async {
+    final l = AppLocalizations.of(context)!;
+    final confirmed = await showDialog<bool>(
       context: context,
-      isScrollControlled: true,
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Статус провайдеров системы', style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 16),
-            // Map Provider
-            ListTile(
-              leading: const Icon(Icons.map, color: Colors.blue),
-              title: const Text('Картографический провайдер', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text('${mapConfig.displayName} · Активен и настроен'),
-              trailing: const Icon(Icons.check_circle, color: Colors.green),
+      builder: (context) => AlertDialog(
+        title: Text(l.deleteAccountTitle),
+        content: Text(l.deleteAccountBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(l.cancel),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            const Divider(),
-            // Push Provider
-            ListTile(
-              leading: const Icon(Icons.notifications_active, color: Colors.orange),
-              title: const Text('Push-уведомления (FCM)', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text('Токен: ${notifState.pushToken ?? "активен"} · Доставка работает'),
-              trailing: const Icon(Icons.check_circle, color: Colors.green),
-            ),
-            const Divider(),
-            // Payments
-            ListTile(
-              leading: const Icon(Icons.payment, color: Colors.green),
-              title: const Text('Платёжные провайдеры', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Payme, Click, Банковские карты (Uzcard/Humo/Visa), Тестовый шлюз подключены'),
-              trailing: const Icon(Icons.check_circle, color: Colors.green),
-            ),
-            const SizedBox(height: 20),
-            FilledButton(
-              style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Закрыть'),
-            ),
-          ],
-        ),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(l.deleteAccount),
+          ),
+        ],
       ),
     );
+    if (confirmed != true || !mounted) return;
+    setState(() => busy = true);
+    final client = ref.read(backendProvider)!;
+    try {
+      await client.rpc('delete_own_account');
+      await client.auth.signOut(scope: SignOutScope.local);
+      ref.invalidate(favoriteIdsProvider);
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l.accountDeleted)));
+      }
+    } catch (e) {
+      if (mounted) {
+        final message = e is PostgrestException &&
+                e.message.contains('ORGANIZER_HAS_EVENTS')
+            ? l.organizerHasEvents
+            : l.actionError;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      }
+    } finally {
+      if (mounted) setState(() => busy = false);
+    }
   }
 }

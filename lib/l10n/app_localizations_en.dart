@@ -154,5 +154,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPurchase =>
-      'Ticket sales are not connected yet. This build is for catalog testing.';
+      'Online ticket sales are coming soon. Contact the organizer to attend.';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get deleteAccountTitle => 'Delete account?';
+
+  @override
+  String get deleteAccountBody =>
+      'Your account, profile, saved events and other personal data will be permanently deleted. This cannot be undone.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get accountDeleted => 'Account deleted';
+
+  @override
+  String get organizerHasEvents =>
+      'Organizers with events must contact support to delete their account.';
+
+  @override
+  String get privacyPolicy => 'Privacy policy';
 }

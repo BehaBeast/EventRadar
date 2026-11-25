@@ -46,5 +46,12 @@
   "savedCount": "Saved events",
   "editName": "Save name",
   "nameSaved": "Name saved",
-  "noPurchase": "Ticket sales are not connected yet. This build is for catalog testing."
+  "noPurchase": "Online ticket sales are coming soon. Contact the organizer to attend.",
+  "deleteAccount": "Delete account",
+  "deleteAccountTitle": "Delete account?",
+  "deleteAccountBody": "Your account, profile, saved events and other personal data will be permanently deleted. This cannot be undone.",
+  "cancel": "Cancel",
+  "accountDeleted": "Account deleted",
+  "organizerHasEvents": "Organizers with events must contact support to delete their account.",
+  "privacyPolicy": "Privacy policy"
 }

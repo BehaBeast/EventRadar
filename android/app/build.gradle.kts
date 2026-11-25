@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -5,8 +7,8 @@ plugins {
 }
 
 android {
-    namespace = "com.eventradar.eventradar"
-    compileSdk = flutter.compileSdkVersion
+    namespace = "uz.eventradar.app"
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -15,12 +17,11 @@ android {
     }
 
     defaultConfig {
-        // Provisional package name: confirm ownership before store registration.
-        applicationId = "com.eventradar.eventradar"
+        applicationId = "uz.eventradar.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 24
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
         // You can force using the value of versionCode by specifying the `-P force-version-code-ignoring-abi=true`
@@ -29,9 +30,26 @@ android {
         versionName = flutter.versionName
     }
 
+    // Upload key lives outside the repo; android/key.properties is gitignored.
+    val keyProps = Properties().apply {
+        val f = rootProject.file("key.properties")
+        if (f.exists()) f.inputStream().use { load(it) }
+    }
+    signingConfigs {
+        if (keyProps.isNotEmpty()) {
+            create("release") {
+                storeFile = file(keyProps.getProperty("storeFile"))
+                storePassword = keyProps.getProperty("storePassword")
+                keyAlias = keyProps.getProperty("keyAlias")
+                keyPassword = keyProps.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // No debug signing fallback for release. Configure a release keystore before publishing.
+            // No debug signing fallback: without key.properties the release stays unsigned.
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 }

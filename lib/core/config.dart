@@ -3,6 +3,8 @@ import 'dart:convert';
 class AppConfig {
   static const url = String.fromEnvironment('SUPABASE_URL');
   static const key = String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY');
+  static const privacyPolicyUrl =
+      'https://behabeast.github.io/EventRadar/privacy.html';
   static bool get configured => valid(url, key);
   static bool valid(String url, String key) {
     final uri = Uri.tryParse(url);

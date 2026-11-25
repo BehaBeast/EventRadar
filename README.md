@@ -80,7 +80,7 @@ npm run test:db
 
 ## Android
 
-Предварительное имя пакета: `com.eventradar.eventradar`; подтвердить перед Google Play.
+Имя пакета: `uz.eventradar.app` (зарегистрировано для Google Play, не менять).
 Минимальная версия: API 24; compile/target берутся из установленного Flutter SDK.
 Для debug: `flutter build apk --debug --dart-define-from-file=config.json`.
 Конфигурация release не подписывает сборку debug-ключом. Подключить отдельный keystore,

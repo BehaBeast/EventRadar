@@ -154,5 +154,28 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get noPurchase =>
-      'Chipta savdosi hali ulanmagan. Ushbu versiya katalogni tekshirish uchun.';
+      'Onlayn chipta savdosi tez orada ishga tushadi. Qatnashish uchun tashkilotchiga murojaat qiling.';
+
+  @override
+  String get deleteAccount => 'Hisobni o‘chirish';
+
+  @override
+  String get deleteAccountTitle => 'Hisob o‘chirilsinmi?';
+
+  @override
+  String get deleteAccountBody =>
+      'Hisobingiz, profil, saqlangan tadbirlar va boshqa shaxsiy ma’lumotlar butunlay o‘chiriladi. Buni qaytarib bo‘lmaydi.';
+
+  @override
+  String get cancel => 'Bekor qilish';
+
+  @override
+  String get accountDeleted => 'Hisob o‘chirildi';
+
+  @override
+  String get organizerHasEvents =>
+      'Tadbirlari bor tashkilotchi hisobni faqat qo‘llab-quvvatlash orqali o‘chira oladi.';
+
+  @override
+  String get privacyPolicy => 'Maxfiylik siyosati';
 }

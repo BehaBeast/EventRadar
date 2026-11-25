@@ -379,8 +379,50 @@ abstract class AppLocalizations {
   /// No description provided for @noPurchase.
   ///
   /// In ru, this message translates to:
-  /// **'Продажа билетов ещё не подключена. Эта сборка предназначена для проверки каталога.'**
+  /// **'Онлайн-продажа билетов скоро появится. Для участия свяжитесь с организатором.'**
   String get noPurchase;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить аккаунт'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить аккаунт?'**
+  String get deleteAccountTitle;
+
+  /// No description provided for @deleteAccountBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт, профиль, избранное и другие персональные данные будут удалены навсегда. Это действие нельзя отменить.'**
+  String get deleteAccountBody;
+
+  /// No description provided for @cancel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get cancel;
+
+  /// No description provided for @accountDeleted.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт удалён'**
+  String get accountDeleted;
+
+  /// No description provided for @organizerHasEvents.
+  ///
+  /// In ru, this message translates to:
+  /// **'Организатор с мероприятиями может удалить аккаунт только через поддержку.'**
+  String get organizerHasEvents;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Политика конфиденциальности'**
+  String get privacyPolicy;
 }
 
 class _AppLocalizationsDelegate
