@@ -53,7 +53,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Это первая сборка EventRadar. Для каталога и входа нужно подключить Supabase по инструкции в README.';
 
   @override
-  String get foundation => 'Первая версия • каталог и профиль';
+  String get foundation => 'Мероприятия Ташкента и Ферганы';
 
   @override
   String get more => 'Показать ещё';
@@ -178,4 +178,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get privacyPolicy => 'Политика конфиденциальности';
+
+  @override
+  String get openInMaps => 'Открыть на карте';
 }

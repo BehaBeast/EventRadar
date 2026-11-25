@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/widgets.dart';
 import '../../l10n/app_localizations.dart';
@@ -312,8 +313,14 @@ class EventScreen extends StatelessWidget {
               if (event.format != 'online')
                 TextButton.icon(
                   icon: const Icon(Icons.map, size: 16),
-                  label: const Text('На карте'),
-                  onPressed: () => context.go('/map'),
+                  label: Text(l.openInMaps),
+                  onPressed: () => launchUrl(
+                    Uri.https('www.google.com', '/maps/search/', {
+                      'api': '1',
+                      'query': '${event.address}, ${event.cityName}',
+                    }),
+                    mode: LaunchMode.externalApplication,
+                  ),
                 ),
             ],
           ),

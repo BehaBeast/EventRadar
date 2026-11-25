@@ -14,7 +14,7 @@
   "actionError": "Action failed. Please try again.",
   "setup": "Server not connected",
   "setupBody": "This is the first EventRadar build. Connect Supabase using the README to enable the catalog and sign-in.",
-  "foundation": "Foundation • catalog and profile",
+  "foundation": "Events in Tashkent and Fergana",
   "more": "Load more",
   "details": "About this event",
   "organizer": "Organizer",
@@ -53,5 +53,6 @@
   "cancel": "Cancel",
   "accountDeleted": "Account deleted",
   "organizerHasEvents": "Organizers with events must contact support to delete their account.",
-  "privacyPolicy": "Privacy policy"
+  "privacyPolicy": "Privacy policy",
+  "openInMaps": "Open in Maps"
 }

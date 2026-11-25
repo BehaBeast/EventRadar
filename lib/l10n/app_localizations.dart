@@ -187,7 +187,7 @@ abstract class AppLocalizations {
   /// No description provided for @foundation.
   ///
   /// In ru, this message translates to:
-  /// **'Первая версия • каталог и профиль'**
+  /// **'Мероприятия Ташкента и Ферганы'**
   String get foundation;
 
   /// No description provided for @more.
@@ -423,6 +423,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Политика конфиденциальности'**
   String get privacyPolicy;
+
+  /// No description provided for @openInMaps.
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыть на карте'**
+  String get openInMaps;
 }
 
 class _AppLocalizationsDelegate

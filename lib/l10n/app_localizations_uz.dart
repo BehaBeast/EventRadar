@@ -53,7 +53,7 @@ class AppLocalizationsUz extends AppLocalizations {
       'Bu EventRadar ilovasining birinchi versiyasi. Katalog va kirish uchun README yo‘riqnomasi orqali Supabase ulang.';
 
   @override
-  String get foundation => 'Birinchi versiya • katalog va profil';
+  String get foundation => 'Toshkent va Farg‘ona tadbirlari';
 
   @override
   String get more => 'Yana ko‘rsatish';
@@ -178,4 +178,7 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get privacyPolicy => 'Maxfiylik siyosati';
+
+  @override
+  String get openInMaps => 'Xaritada ochish';
 }

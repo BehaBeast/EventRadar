@@ -53,7 +53,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'This is the first EventRadar build. Connect Supabase using the README to enable the catalog and sign-in.';
 
   @override
-  String get foundation => 'Foundation • catalog and profile';
+  String get foundation => 'Events in Tashkent and Fergana';
 
   @override
   String get more => 'Load more';
@@ -178,4 +178,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyPolicy => 'Privacy policy';
+
+  @override
+  String get openInMaps => 'Open in Maps';
 }

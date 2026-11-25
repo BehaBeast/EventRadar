@@ -14,7 +14,7 @@
   "actionError": "Amal bajarilmadi. Qayta urinib ko‘ring.",
   "setup": "Server ulanmagan",
   "setupBody": "Bu EventRadar ilovasining birinchi versiyasi. Katalog va kirish uchun README yo‘riqnomasi orqali Supabase ulang.",
-  "foundation": "Birinchi versiya • katalog va profil",
+  "foundation": "Toshkent va Farg‘ona tadbirlari",
   "more": "Yana ko‘rsatish",
   "details": "Tadbir haqida",
   "organizer": "Tashkilotchi",
@@ -53,5 +53,6 @@
   "cancel": "Bekor qilish",
   "accountDeleted": "Hisob o‘chirildi",
   "organizerHasEvents": "Tadbirlari bor tashkilotchi hisobni faqat qo‘llab-quvvatlash orqali o‘chira oladi.",
-  "privacyPolicy": "Maxfiylik siyosati"
+  "privacyPolicy": "Maxfiylik siyosati",
+  "openInMaps": "Xaritada ochish"
 }
